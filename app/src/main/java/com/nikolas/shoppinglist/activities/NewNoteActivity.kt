@@ -1,5 +1,6 @@
 package com.nikolas.shoppinglist.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ActivityNewNoteBinding
+import com.nikolas.shoppinglist.fragments.NoteFragment
 
 class NewNoteActivity : AppCompatActivity() {
 
@@ -30,10 +32,19 @@ class NewNoteActivity : AppCompatActivity() {
                 finish()
             }
             R.id.id_save -> {
-                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show()
+                setMainResult()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setMainResult()  {
+        val i = Intent().apply {
+            putExtra(NoteFragment.TITLE_KEY, binding.edTitle.text.toString())
+            putExtra(NoteFragment.DESC_KEY, binding.edDescription.text.toString())
+        }
+        setResult(RESULT_OK, i)
+        finish()
     }
 
     private fun actionBarSettings() {
