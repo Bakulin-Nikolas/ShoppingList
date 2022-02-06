@@ -1,9 +1,7 @@
 package com.nikolas.shoppinglist.db
 
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
 import com.nikolas.shoppinglist.entities.NoteItem
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +16,7 @@ interface Dao {
 
     @Query ("DELETE FROM note_list WHERE id IS :id")
     suspend fun deleteNote(id: Int)
+
+    @Update
+    suspend fun updateNote(note: NoteItem)
 }
