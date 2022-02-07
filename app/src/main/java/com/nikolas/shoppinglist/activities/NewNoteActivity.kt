@@ -1,8 +1,11 @@
 package com.nikolas.shoppinglist.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -52,8 +55,28 @@ class NewNoteActivity : AppCompatActivity() {
             R.id.id_save -> {
                 setMainResult()
             }
+            R.id.id_bold -> {
+                setBoldForSelectedText()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBoldForSelectedText() = with(binding) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+
+        val styles = edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        var boldStyle: StyleSpan? = null
+        if(styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+        } else {
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+
+        edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
     }
 
     private fun setMainResult()  {
