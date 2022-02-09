@@ -1,10 +1,12 @@
 package com.nikolas.shoppinglist.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
@@ -12,12 +14,14 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ActivityNewNoteBinding
 import com.nikolas.shoppinglist.entities.NoteItem
 import com.nikolas.shoppinglist.fragments.NoteFragment
 import com.nikolas.shoppinglist.utils.HtmlManager
+import com.nikolas.shoppinglist.utils.MyTouchListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +36,34 @@ class NewNoteActivity : AppCompatActivity() {
         setContentView(binding.root)
         actionBarSettings()
         getNote()
+        init()
+        onClickColorPicker()
+    }
+
+    private fun onClickColorPicker() = with(binding) {
+        imRed.setOnClickListener {
+            setColorForSelectedText(R.color.picker_red)
+        }
+        imBlack.setOnClickListener {
+            setColorForSelectedText(R.color.picker_black)
+        }
+        imBlue.setOnClickListener {
+            setColorForSelectedText(R.color.picker_blue)
+        }
+        imYellow.setOnClickListener {
+            setColorForSelectedText(R.color.picker_yellow)
+        }
+        imGreen.setOnClickListener {
+            setColorForSelectedText(R.color.picker_green)
+        }
+        imOrange.setOnClickListener {
+            setColorForSelectedText(R.color.picker_orange)
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() {
+        binding.colorPicker.setOnTouchListener(MyTouchListener())
     }
 
     private fun getNote() {
@@ -88,6 +120,23 @@ class NewNoteActivity : AppCompatActivity() {
         }
 
         edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
+    }
+
+    private fun setColorForSelectedText(colorId: Int) = with(binding) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+
+        val styles = edDescription.text.getSpans(startPos, endPos, ForegroundColorSpan::class.java)
+        if(styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+        }
+
+        edDescription.text.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(this@NewNoteActivity, colorId)),
+            startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         edDescription.text.trim()
         edDescription.setSelection(startPos)
     }
