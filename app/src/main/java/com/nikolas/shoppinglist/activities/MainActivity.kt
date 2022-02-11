@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ActivityMainBinding
+import com.nikolas.shoppinglist.dialogs.NewListDialog
 import com.nikolas.shoppinglist.fragments.FragmentManager
 import com.nikolas.shoppinglist.fragments.NoteFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
     lateinit var binding: ActivityMainBinding
 
@@ -32,10 +33,15 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Shop list", Toast.LENGTH_SHORT).show()
                 }
                 R.id.new_item -> {
-                    FragmentManager.currentFrag?.OnClickNew()
+//                    FragmentManager.currentFrag?.OnClickNew()
+                    NewListDialog.showDialog(this, this)
                 }
             }
             true
         }
+    }
+
+    override fun onClick(name: String) {
+        Toast.makeText(this, name, Toast.LENGTH_SHORT).show()
     }
 }

@@ -6,4 +6,7 @@
     <string name="new_item">New</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">Description</string>
+    <string name="new_list">Название нового списка</string>
+    <string name="list_name">название списка</string>
+    <string name="button_create_list">Создать список</string>
 </resources>
