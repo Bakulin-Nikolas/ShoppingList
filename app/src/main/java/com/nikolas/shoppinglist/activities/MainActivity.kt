@@ -8,6 +8,7 @@ import com.nikolas.shoppinglist.databinding.ActivityMainBinding
 import com.nikolas.shoppinglist.dialogs.NewListDialog
 import com.nikolas.shoppinglist.fragments.FragmentManager
 import com.nikolas.shoppinglist.fragments.NoteFragment
+import com.nikolas.shoppinglist.fragments.ShopListNamesFragment
 
 class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
+        binding.bNav.selectedItemId = R.id.shop_list
         setBottomNavListener()
     }
 
@@ -30,11 +33,10 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
                     FragmentManager.setFragment(NoteFragment.newInstance(), this)
                 }
                 R.id.shop_list -> {
-                    Toast.makeText(this, "Shop list", Toast.LENGTH_SHORT).show()
+                    FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
                 }
                 R.id.new_item -> {
-//                    FragmentManager.currentFrag?.OnClickNew()
-                    NewListDialog.showDialog(this, this)
+                    FragmentManager.currentFrag?.OnClickNew()
                 }
             }
             true
