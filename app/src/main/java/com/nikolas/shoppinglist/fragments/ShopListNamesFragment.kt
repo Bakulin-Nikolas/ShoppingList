@@ -11,6 +11,8 @@ import com.nikolas.shoppinglist.activities.MainApp
 import com.nikolas.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.nikolas.shoppinglist.db.MainViewModel
 import com.nikolas.shoppinglist.dialogs.NewListDialog
+import com.nikolas.shoppinglist.entities.ShoppingListName
+import com.nikolas.shoppinglist.utils.TimeManager
 
 
 class ShopListNamesFragment : BaseFragment() {
@@ -24,7 +26,15 @@ class ShopListNamesFragment : BaseFragment() {
     override fun OnClickNew() {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
             override fun onClick(name: String) {
-                Toast.makeText(activity, name, Toast.LENGTH_SHORT).show()
+                val shopListName = ShoppingListName(
+                    null,
+                    name,
+                    TimeManager.getCurrentTime(),
+                    0,
+                    0,
+                    ""
+                )
+                mainViewModel.insertShopListName(shopListName)
             }
 
         })
@@ -55,7 +65,7 @@ class ShopListNamesFragment : BaseFragment() {
 
 
     private fun observer() {
-        mainViewModel.allNotes.observe(viewLifecycleOwner, {
+        mainViewModel.allShopListNames.observe(viewLifecycleOwner, {
 
         })
     }
