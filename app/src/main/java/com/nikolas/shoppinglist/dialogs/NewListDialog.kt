@@ -16,9 +16,9 @@ object NewListDialog {
                 val listName = edNewListName.text.toString()
                 if(listName.isNotEmpty()) {
                     listener.onClick(listName)
-                } else {
-                    dialog?.dismiss()
                 }
+                dialog?.dismiss()
+
             }
         }
 
