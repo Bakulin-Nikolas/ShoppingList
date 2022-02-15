@@ -12,12 +12,14 @@ import com.nikolas.shoppinglist.activities.MainApp
 import com.nikolas.shoppinglist.databinding.FragmentShopListNamesBinding
 import com.nikolas.shoppinglist.db.MainViewModel
 import com.nikolas.shoppinglist.db.ShopListNameAdapter
+import com.nikolas.shoppinglist.dialogs.DeleteDialog
 import com.nikolas.shoppinglist.dialogs.NewListDialog
+import com.nikolas.shoppinglist.entities.NoteItem
 import com.nikolas.shoppinglist.entities.ShoppingListName
 import com.nikolas.shoppinglist.utils.TimeManager
 
 
-class ShopListNamesFragment : BaseFragment() {
+class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
 
     private lateinit var binding: FragmentShopListNamesBinding
     private lateinit var adapter: ShopListNameAdapter
@@ -64,7 +66,7 @@ class ShopListNamesFragment : BaseFragment() {
 
     private fun initRcView() = with(binding) {
         rcView.layoutManager = LinearLayoutManager(activity)
-        adapter = ShopListNameAdapter()
+        adapter = ShopListNameAdapter(this@ShopListNamesFragment)
         rcView.adapter = adapter
     }
 
@@ -79,5 +81,18 @@ class ShopListNamesFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance() = ShopListNamesFragment()
+    }
+
+    override fun deleteItem(id: Int) {
+        DeleteDialog.showDialog(context as AppCompatActivity, object : DeleteDialog.Listener {
+            override fun onClick() {
+                mainViewModel.deleteShopListName(id)
+            }
+
+        })
+    }
+
+    override fun onClickItem(note: NoteItem) {
+
     }
 }
