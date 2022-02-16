@@ -14,4 +14,6 @@
     <string name="delete_alert">Удалить</string>
     <string name="delete_item">Вы точно хотите удалить?</string>
     <string name="cancel">Отменить</string>
+    <string name="update">Обновить</string>
+    <string name="title_list_name">Название списка</string>
 </resources>
