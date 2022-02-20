@@ -16,4 +16,11 @@
     <string name="cancel">Отменить</string>
     <string name="update">Обновить</string>
     <string name="title_list_name">Название списка</string>
+    <string name="delete_list">Удалить список</string>
+    <string name="clear_list">Очистить список</string>
+    <string name="share_list">Поделиться списком</string>
+    <string name="new_shop_item">Новый элемент списка</string>
+    <string name="save_item">Сохранить элемент</string>
+    <string name="new_item_text">Новый элемент</string>
+
 </resources>

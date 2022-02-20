@@ -2,29 +2,29 @@ package com.nikolas.shoppinglist.db
 
 import androidx.lifecycle.*
 import com.nikolas.shoppinglist.entities.NoteItem
-import com.nikolas.shoppinglist.entities.ShoppingListName
+import com.nikolas.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class MainViewModel(database: MainDataBase) : ViewModel() {
     val dao = database.getDao()
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
-    val allShopListNames: LiveData<List<ShoppingListName>> = dao.getAllShopListNames().asLiveData()
+    val allShopListNamesItem: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
     }
 
-    fun insertShopListName(listName: ShoppingListName) = viewModelScope.launch {
-        dao.insertShopListName(listName)
+    fun insertShopListName(listNameItem: ShopListNameItem) = viewModelScope.launch {
+        dao.insertShopListName(listNameItem)
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
         dao.updateNote(note)
     }
 
-    fun updateShopListName(listName: ShoppingListName) = viewModelScope.launch {
-        dao.updateShopListName(listName)
+    fun updateShopListName(listNameItem: ShopListNameItem) = viewModelScope.launch {
+        dao.updateShopListName(listNameItem)
     }
 
     fun deleteNote(id: Int) = viewModelScope.launch {

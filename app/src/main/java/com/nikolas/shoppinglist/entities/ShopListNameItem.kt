@@ -7,7 +7,7 @@ import java.io.Serializable
 
 
 @Entity (tableName = "shopping_list_names")
-data class ShoppingListName(
+data class ShopListNameItem(
 
     @PrimaryKey (autoGenerate = true)
     val id: Int?,
