@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ListNameItemBinding
+import com.nikolas.shoppinglist.databinding.ShopLibraryListItemBinding
+import com.nikolas.shoppinglist.databinding.ShopListItemBinding
 import com.nikolas.shoppinglist.entities.ShopListNameItem
 import com.nikolas.shoppinglist.entities.ShopListItem
 
@@ -34,14 +36,15 @@ class ShopListItemAdapter(private val listener: Listener) : ListAdapter<ShopList
         return getItem(position).itemType
     }
 
-    class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = ListNameItemBinding.bind(view)
-
-        fun setItemData(shopListItem: ShopListItem, listener: Listener) = with(binding) {
-
+        fun setItemData(shopListItem: ShopListItem, listener: Listener) {
+            val binding = ShopListItemBinding.bind(view)
+            binding.apply {
+                tvName.text = shopListItem.name
+            }
         }
-        fun setLibraryData(shopListItem: ShopListItem, listener: Listener) = with(binding) {
+        fun setLibraryData(shopListItem: ShopListItem, listener: Listener) {
 
         }
 

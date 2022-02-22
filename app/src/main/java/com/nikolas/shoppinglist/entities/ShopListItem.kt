@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity (tableName = "shopping_list_item")
+@Entity (tableName = "shop_list_item")
 data class ShopListItem(
 
     @PrimaryKey (autoGenerate = true)
