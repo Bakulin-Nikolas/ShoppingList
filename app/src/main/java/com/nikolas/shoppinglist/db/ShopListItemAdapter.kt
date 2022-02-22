@@ -1,8 +1,10 @@
 package com.nikolas.shoppinglist.db
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -44,13 +46,32 @@ class ShopListItemAdapter(private val listener: Listener) : ListAdapter<ShopList
                 tvName.text = shopListItem.name
                 tvInfo.text = shopListItem.itemInfo
                 tvInfo.visibility = infoVisibility(shopListItem)
+                chBox.setOnClickListener {
+                    setPaintFlagAndColor(binding)
+                }
             }
         }
         fun setLibraryData(shopListItem: ShopListItem, listener: Listener) {
 
         }
 
-        fun infoVisibility(shopListItem: ShopListItem): Int {
+        private fun setPaintFlagAndColor(binding: ShopListItemBinding) {
+            binding.apply {
+                if(chBox.isChecked) {
+                    tvName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    tvInfo.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    tvName.setTextColor(ContextCompat.getColor(binding.root.context, R.color.grey_light))
+                    tvInfo.setTextColor(ContextCompat.getColor(binding.root.context, R.color.grey_light))
+                } else {
+                    tvName.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    tvInfo.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    tvName.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+                    tvInfo.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+                }
+            }
+        }
+
+        private fun infoVisibility(shopListItem: ShopListItem): Int {
             return if(shopListItem.itemInfo.isNullOrEmpty()) {
                 View.GONE
             } else {
