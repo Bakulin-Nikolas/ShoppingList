@@ -4,6 +4,7 @@ import androidx.room.*
 import androidx.room.Dao
 import com.nikolas.shoppinglist.entities.NoteItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
+import com.nikolas.shoppinglist.entities.ShopListItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,6 +18,9 @@ interface Dao {
 
     @Insert
     suspend fun insertNote(note: NoteItem)
+
+    @Insert
+    suspend fun insertItem(shopListItem: ShopListItem)
 
     @Insert
     suspend fun insertShopListName(nameItem: ShopListNameItem)

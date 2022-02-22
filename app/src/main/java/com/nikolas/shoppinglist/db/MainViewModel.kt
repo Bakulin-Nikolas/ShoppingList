@@ -2,6 +2,7 @@ package com.nikolas.shoppinglist.db
 
 import androidx.lifecycle.*
 import com.nikolas.shoppinglist.entities.NoteItem
+import com.nikolas.shoppinglist.entities.ShopListItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
@@ -17,6 +18,10 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
 
     fun insertShopListName(listNameItem: ShopListNameItem) = viewModelScope.launch {
         dao.insertShopListName(listNameItem)
+    }
+
+    fun insertShopItem(shopListItem: ShopListItem) = viewModelScope.launch {
+        dao.insertItem(shopListItem)
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
