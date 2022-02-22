@@ -22,5 +22,6 @@
     <string name="new_shop_item">Новый элемент списка</string>
     <string name="save_item">Сохранить элемент</string>
     <string name="new_item_text">Новый элемент</string>
+    <string name="empty_list">Пусто</string>
 
 </resources>
