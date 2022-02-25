@@ -23,5 +23,9 @@
     <string name="save_item">Сохранить элемент</string>
     <string name="new_item_text">Новый элемент</string>
     <string name="empty_list">Пусто</string>
+    <string name="edit_item">Измените элемент списка</string>
+    <string name="name_item">Название элемента</string>
+    <string name="description_item">Описание</string>
+    <string name="button_edit">Изменить</string>
 
 </resources>

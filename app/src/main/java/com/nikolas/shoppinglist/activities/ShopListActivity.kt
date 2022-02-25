@@ -12,6 +12,7 @@ import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ActivityShopListBinding
 import com.nikolas.shoppinglist.db.MainViewModel
 import com.nikolas.shoppinglist.db.ShopListItemAdapter
+import com.nikolas.shoppinglist.dialogs.EditListItemDialog
 import com.nikolas.shoppinglist.entities.ShopListItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
 
@@ -60,7 +61,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         val item = ShopListItem(
             null,
             edItem?.text.toString(),
-            null,
+            "",
             false,
             shopListNameItem?.id!!,
             0
@@ -110,7 +111,23 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         const val SHOP_LIST_NAME = "shop_list_name"
     }
 
-    override fun onClickItem(shopListItem: ShopListItem) {
-        mainViewModel.updateListItem(shopListItem)
+    override fun onClickItem(shopListItem: ShopListItem, state: Int) {
+        when(state) {
+            ShopListItemAdapter.CHECK_BOX -> {
+                mainViewModel.updateListItem(shopListItem)
+            }
+            ShopListItemAdapter.EDIT -> {
+                editListItem(shopListItem)
+            }
+        }
+
+    }
+
+    private fun editListItem(item: ShopListItem) {
+        EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
+            override fun onClick(item: ShopListItem) {
+                mainViewModel.updateListItem(item)
+            }
+        })
     }
 }
