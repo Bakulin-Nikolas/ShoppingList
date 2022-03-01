@@ -1,7 +1,9 @@
 package com.nikolas.shoppinglist.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SharedMemory
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +17,7 @@ import com.nikolas.shoppinglist.db.ShopListItemAdapter
 import com.nikolas.shoppinglist.dialogs.EditListItemDialog
 import com.nikolas.shoppinglist.entities.ShopListItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
+import com.nikolas.shoppinglist.utils.ShareHelper
 
 class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
@@ -58,6 +61,12 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             }
             R.id.clear_list -> {
                 mainViewModel.deleteShopList(shopListNameItem?.id!!, false)
+            }
+            R.id.share_list -> {
+                startActivity(Intent.createChooser(
+                    ShareHelper.shareShopList(adapter?.currentList!!, shopListNameItem?.name!!),
+                    "Поделиться с помощью"
+                ))
             }
         }
 
