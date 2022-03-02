@@ -2,6 +2,7 @@ package com.nikolas.shoppinglist.db
 
 import androidx.room.*
 import androidx.room.Dao
+import com.nikolas.shoppinglist.entities.LibraryItem
 import com.nikolas.shoppinglist.entities.NoteItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
 import com.nikolas.shoppinglist.entities.ShopListItem
@@ -19,11 +20,17 @@ interface Dao {
     @Query ("SELECT * FROM shop_list_item WHERE listId LIKE :listId")
     fun getAllShopListItems(listId: Int): Flow<List<ShopListItem>>
 
+    @Query ("SELECT * FROM library WHERE name LIKE :name")
+    suspend fun getAllLibraryItems(name: String): List<LibraryItem>
+
     @Insert
     suspend fun insertNote(note: NoteItem)
 
     @Insert
     suspend fun insertItem(shopListItem: ShopListItem)
+
+    @Insert
+    suspend fun insertLibraryItem(libraryItem: LibraryItem)
 
     @Insert
     suspend fun insertShopListName(nameItem: ShopListNameItem)

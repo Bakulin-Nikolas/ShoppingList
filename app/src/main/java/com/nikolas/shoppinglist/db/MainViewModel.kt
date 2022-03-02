@@ -1,6 +1,7 @@
 package com.nikolas.shoppinglist.db
 
 import androidx.lifecycle.*
+import com.nikolas.shoppinglist.entities.LibraryItem
 import com.nikolas.shoppinglist.entities.NoteItem
 import com.nikolas.shoppinglist.entities.ShopListItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
@@ -26,6 +27,9 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
 
     fun insertShopItem(shopListItem: ShopListItem) = viewModelScope.launch {
         dao.insertItem(shopListItem)
+        if(!isLibraryItemExists(shopListItem.name)) {
+            dao.insertLibraryItem(LibraryItem(null, shopListItem.name))
+        }
     }
 
     fun updateListItem(item: ShopListItem) = viewModelScope.launch {
@@ -49,6 +53,10 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
             dao.deleteShopListName(id)
         }
         dao.deleteShopListItemsByListId(id)
+    }
+
+    private suspend fun isLibraryItemExists(name: String): Boolean {
+        return dao.getAllLibraryItems(name).isNotEmpty()
     }
 
     class MainViewModelFactory(val database: MainDataBase) : ViewModelProvider.Factory {
