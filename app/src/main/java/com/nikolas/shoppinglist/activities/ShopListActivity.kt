@@ -64,6 +64,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Log.d("MyLog", "Текст: $s")
+                mainViewModel.getAllLibraryItems("%$s%")
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -123,6 +124,24 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         })
     }
 
+    private fun libraryItemObserver() {
+        mainViewModel.libraryItems.observe(this, {
+            val tempShopList = ArrayList<ShopListItem>()
+            it.forEach { item ->
+                val shopItem = ShopListItem(
+                    item.id,
+                    item.name,
+                    "",
+                    false,
+                    0,
+                    1
+                )
+                tempShopList.add(shopItem)
+            }
+            adapter?.submitList(tempShopList)
+        })
+    }
+
     private fun initRcView() = with(binding) {
         adapter = ShopListItemAdapter(this@ShopListActivity)
         rcView.layoutManager = LinearLayoutManager(this@ShopListActivity)
@@ -134,6 +153,9 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 saveItem.isVisible = true
                 edItem?.addTextChangedListener(textWatcher)
+                libraryItemObserver()
+                mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).removeObservers(this@ShopListActivity)
+                mainViewModel.getAllLibraryItems("%%")
                 return true
             }
 
@@ -141,6 +163,9 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 saveItem.isVisible = false
                 edItem?.removeTextChangedListener(textWatcher)
                 invalidateOptionsMenu()
+                mainViewModel.libraryItems.removeObservers(this@ShopListActivity)
+                edItem?.setText("")
+                listItemObserver()
                 return true
             }
 

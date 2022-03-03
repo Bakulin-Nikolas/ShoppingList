@@ -58,6 +58,10 @@ class ShopListItemAdapter(private val listener: Listener) : ListAdapter<ShopList
             }
         }
         fun setLibraryData(shopListItem: ShopListItem, listener: Listener) {
+            val binding = ShopLibraryListItemBinding.bind(view)
+            binding.apply {
+                tvName.text = shopListItem.name
+            }
 
         }
 
