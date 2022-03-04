@@ -1,8 +1,11 @@
 package com.nikolas.shoppinglist.db
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +31,13 @@ class ShopListNameAdapter(private val listener: Listener) : ListAdapter<ShopList
 
             tvListName.text = shopListNameItem.name
             tvTime.text = shopListNameItem.time
+            pBar.max = shopListNameItem.allItemCounter
+            pBar.progress = shopListNameItem.checkedItemsCounter
+            val colorState = ColorStateList.valueOf(getProgressColorState(shopListNameItem, binding.root.context))
+            pBar.progressTintList = colorState
+            counterCard.backgroundTintList = colorState
+            val counterText = "${shopListNameItem.checkedItemsCounter}/${shopListNameItem.allItemCounter}"
+            tvCounter.text = counterText
 
             //itemView - это весь элемент
             itemView.setOnClickListener {
@@ -40,6 +50,14 @@ class ShopListNameAdapter(private val listener: Listener) : ListAdapter<ShopList
                 listener.editItem(shopListNameItem)
             }
 
+        }
+
+        private fun getProgressColorState(item: ShopListNameItem, context: Context): Int {
+            return if(item.checkedItemsCounter == item.allItemCounter) {
+                ContextCompat.getColor(context, R.color.green_main)
+            } else {
+                ContextCompat.getColor(context, R.color.red_main)
+            }
         }
 
         companion object {

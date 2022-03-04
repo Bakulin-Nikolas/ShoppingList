@@ -96,7 +96,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
             override fun onClick(name: String) {
 
-                mainViewModel.updateShopListName(shopListNameItem.copy(name = name))
+                mainViewModel.updateListName(shopListNameItem.copy(name = name))
             }
 
         }, shopListNameItem.name)
