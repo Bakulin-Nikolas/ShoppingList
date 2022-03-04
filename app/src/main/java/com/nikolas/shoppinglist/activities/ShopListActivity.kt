@@ -19,6 +19,7 @@ import com.nikolas.shoppinglist.databinding.ActivityShopListBinding
 import com.nikolas.shoppinglist.db.MainViewModel
 import com.nikolas.shoppinglist.db.ShopListItemAdapter
 import com.nikolas.shoppinglist.dialogs.EditListItemDialog
+import com.nikolas.shoppinglist.entities.LibraryItem
 import com.nikolas.shoppinglist.entities.ShopListItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
 import com.nikolas.shoppinglist.utils.ShareHelper
@@ -139,6 +140,11 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 tempShopList.add(shopItem)
             }
             adapter?.submitList(tempShopList)
+            binding.tvEmpty.visibility = if(it.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         })
     }
 
@@ -188,6 +194,13 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             ShopListItemAdapter.EDIT -> {
                 editListItem(shopListItem)
             }
+            ShopListItemAdapter.EDIT_LIBRARY_ITEM -> {
+                editLibraryItem(shopListItem)
+            }
+            ShopListItemAdapter.DELETE_LIBRARY_ITEM -> {
+                mainViewModel.deleteLibraryItem(shopListItem.id!!)
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%")
+            }
         }
 
     }
@@ -196,6 +209,15 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
             override fun onClick(item: ShopListItem) {
                 mainViewModel.updateListItem(item)
+            }
+        })
+    }
+
+    private fun editLibraryItem(item: ShopListItem) {
+        EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
+            override fun onClick(item: ShopListItem) {
+                mainViewModel.updateLibraryItem(LibraryItem(item.id, item.name))
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%")
             }
         })
     }

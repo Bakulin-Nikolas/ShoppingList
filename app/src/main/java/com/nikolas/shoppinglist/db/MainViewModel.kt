@@ -5,6 +5,7 @@ import com.nikolas.shoppinglist.entities.LibraryItem
 import com.nikolas.shoppinglist.entities.NoteItem
 import com.nikolas.shoppinglist.entities.ShopListItem
 import com.nikolas.shoppinglist.entities.ShopListNameItem
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -19,6 +20,7 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
     }
 
     fun getAllLibraryItems(name: String) = viewModelScope.launch {
+        delay(100L)
         libraryItems.postValue(dao.getAllLibraryItems(name))
     }
 
@@ -45,12 +47,20 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
         dao.updateNote(note)
     }
 
+    fun updateLibraryItem(item: LibraryItem) = viewModelScope.launch {
+        dao.updateLibraryItem(item)
+    }
+
     fun updateShopListName(listNameItem: ShopListNameItem) = viewModelScope.launch {
         dao.updateShopListName(listNameItem)
     }
 
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
+    }
+
+    fun deleteLibraryItem(id: Int) = viewModelScope.launch {
+        dao.deleteLibraryItem(id)
     }
 
     fun deleteShopList(id: Int, deleteList: Boolean) = viewModelScope.launch {
