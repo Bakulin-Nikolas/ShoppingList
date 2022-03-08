@@ -28,9 +28,14 @@
     <string name="description_item">Описание</string>
     <string name="button_edit">Изменить</string>
     <string name="general">Общие</string>
-    <string name="chose_not_style">Выберите стиль заметок</string>
-    <string name="chose_time_format">Выберите формат времени</string>
+    <string name="choose_not_style">Выберите стиль заметок</string>
+    <string name="choose_time_format">Выберите формат времени</string>
     <string name="remove_ads">Убрать рекламу</string>
     <string name="remove_ads_summary">Убрать всю рекламу в приложении</string>
+    <string name="theme_settings">Настройки темы</string>
+    <string name="choose_theme">Выберите тему</string>
+    <string name="note_text_settings">Настройки текста заметок</string>
+    <string name="title_text_size">Размер текста заголовков</string>
+    <string name="content_text_size">Размер текста описания</string>
 
 </resources>

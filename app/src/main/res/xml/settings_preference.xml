@@ -9,17 +9,44 @@
             android:entryValues="@array/not_style_values"
             android:key="note_style_key"
             android:icon="@drawable/ic_style"
-            android:title="@string/chose_not_style" />
+            android:title="@string/choose_not_style" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/time_format_array"
             android:entryValues="@array/time_format_values"
             android:key="time_format_key"
             android:icon="@drawable/ic_time_format"
-            android:title="@string/chose_time_format" />
+            android:title="@string/choose_time_format" />
         <Preference
             android:title="@string/remove_ads"
             android:summary="@string/remove_ads_summary"
             android:icon="@drawable/ic_remove_ads" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/theme_settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/choose_theme_array"
+            android:entryValues="@array/choose_theme_values"
+            android:key="theme_key"
+            android:icon="@drawable/ic_theme_style"
+            android:title="@string/choose_theme" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/note_text_settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/text_size_array"
+            android:entryValues="@array/text_size_values"
+            android:key="title_size_key"
+            android:icon="@drawable/ic_text"
+            android:title="@string/title_text_size" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/text_size_array"
+            android:entryValues="@array/text_size_values"
+            android:key="content_size_key"
+            android:icon="@drawable/ic_text"
+            android:title="@string/content_text_size" />
     </PreferenceCategory>
 </PreferenceScreen>
