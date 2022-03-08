@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="not_style_array">
+        <item>Список</item>
+        <item>Плитка</item>
+    </string-array>
+    <string-array name="not_style_values">
+        <item>Linear</item>
+        <item>Grid</item>
+    </string-array>
+
+    <string-array name="time_format_array">
+        <item>13:59:59 – 2022/12/31</item>
+        <item>13:59:59 – 31/11/2022</item>
+        <item>13:59 – 31/12/2022</item>
+    </string-array>
+    <string-array name="time_format_values">
+        <item>HH:mm:ss - yyyy/MM/dd</item>
+        <item>HH:mm:ss - dd/MM/yyyy</item>
+        <item>HH:mm - dd/MM/yyyy</item>
+    </string-array>
+</resources>

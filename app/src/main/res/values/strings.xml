@@ -27,5 +27,10 @@
     <string name="name_item">Название элемента</string>
     <string name="description_item">Описание</string>
     <string name="button_edit">Изменить</string>
+    <string name="general">Общие</string>
+    <string name="chose_not_style">Выберите стиль заметок</string>
+    <string name="chose_time_format">Выберите формат времени</string>
+    <string name="remove_ads">Убрать рекламу</string>
+    <string name="remove_ads_summary">Убрать всю рекламу в приложении</string>
 
 </resources>
