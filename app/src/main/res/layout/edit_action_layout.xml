@@ -8,6 +8,8 @@
         android:id="@+id/edNewShopItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/Theme.EditBlue"
+        android:textColor="@color/white"
         android:ems="10"
         android:hint="@string/new_item_text"
         android:inputType="textPersonName" />

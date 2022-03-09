@@ -19,4 +19,8 @@
     <color name="picker_orange">#FF9800</color>
     <color name="grey">#424242</color>
     <color name="grey_light">#838383</color>
+    <color name="blue_light">#2DA2BF</color>
+    <color name="blue_dark">#20798F</color>
+    <color name="red_light">#CF1414</color>
+    <color name="red_dark">#951212</color>
 </resources>
