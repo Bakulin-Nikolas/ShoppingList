@@ -2,6 +2,7 @@ package com.nikolas.shoppinglist.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.activities.MainApp
@@ -26,6 +29,7 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     private lateinit var binding: FragmentNoteBinding
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: NoteAdapter
+    private lateinit var defPref: SharedPreferences
 
     private val mainViewModel: MainViewModel by activityViewModels{
         MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
@@ -58,7 +62,8 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     private fun initRcView() = with(binding) {
         //в контекст надо передать активити, так как мы во фрагменте
         rcViewNote.layoutManager = LinearLayoutManager(activity)
-        adapter = NoteAdapter(this@NoteFragment)
+        defPref = PreferenceManager.getDefaultSharedPreferences(activity as AppCompatActivity)
+        adapter = NoteAdapter(this@NoteFragment, defPref)
         rcViewNote.adapter = adapter
     }
 
