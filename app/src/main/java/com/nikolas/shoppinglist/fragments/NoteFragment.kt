@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.activities.MainApp
 import com.nikolas.shoppinglist.activities.NewNoteActivity
@@ -60,11 +62,19 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     }
 
     private fun initRcView() = with(binding) {
-        //в контекст надо передать активити, так как мы во фрагменте
-        rcViewNote.layoutManager = LinearLayoutManager(activity)
         defPref = PreferenceManager.getDefaultSharedPreferences(activity as AppCompatActivity)
+        rcViewNote.layoutManager = getLayoutManager()
         adapter = NoteAdapter(this@NoteFragment, defPref)
         rcViewNote.adapter = adapter
+    }
+
+    private fun getLayoutManager(): RecyclerView.LayoutManager {
+        return if(defPref.getString("note_style_key", "Linear") == "Linear") {
+            LinearLayoutManager(activity)
+        } else {
+            //2 заметки в строке и идти по вертикали
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
     }
 
 

@@ -5,7 +5,7 @@
     <PreferenceCategory android:title="@string/general">
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="Linear"
             android:entries="@array/not_style_array"
             android:entryValues="@array/not_style_values"
             android:key="note_style_key"
