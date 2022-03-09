@@ -1,5 +1,6 @@
 package com.nikolas.shoppinglist.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.nikolas.shoppinglist.dialogs.NewListDialog
 import com.nikolas.shoppinglist.fragments.FragmentManager
 import com.nikolas.shoppinglist.fragments.NoteFragment
 import com.nikolas.shoppinglist.fragments.ShopListNamesFragment
+import com.nikolas.shoppinglist.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
         binding.bNav.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.settings -> {
-                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, SettingsActivity::class.java))
                 }
                 R.id.notes -> {
                     FragmentManager.setFragment(NoteFragment.newInstance(), this)
