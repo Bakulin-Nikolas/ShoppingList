@@ -38,14 +38,17 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
         binding.bNav.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.settings -> {
+                    setTitle(R.string.settings)
                     startActivity(Intent(this, SettingsActivity::class.java))
                 }
                 R.id.notes -> {
                     currentMenuItemId = R.id.notes
+                    setTitle(R.string.notes)
                     FragmentManager.setFragment(NoteFragment.newInstance(), this)
                 }
                 R.id.shop_list -> {
                     currentMenuItemId = R.id.shop_list
+                    setTitle(R.string.app_name)
                     FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
                 }
                 R.id.new_item -> {

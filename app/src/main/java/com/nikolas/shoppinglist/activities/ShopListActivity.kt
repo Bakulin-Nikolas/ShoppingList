@@ -1,6 +1,7 @@
 package com.nikolas.shoppinglist.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SharedMemory
@@ -13,6 +14,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ActivityShopListBinding
@@ -27,6 +29,7 @@ import com.nikolas.shoppinglist.utils.ShareHelper
 class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
     private lateinit var binding: ActivityShopListBinding
+    private lateinit var defPref: SharedPreferences
     private var shopListNameItem: ShopListNameItem? = null
     private lateinit var saveItem: MenuItem
     private var edItem: EditText? = null
@@ -40,8 +43,11 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopListBinding.inflate(layoutInflater)
+        defPref = PreferenceManager.getDefaultSharedPreferences(this)
+        setTheme(getSelectedTheme())
         setContentView(binding.root)
         init()
+        actionBarSettings()
         initRcView()
         listItemObserver()
     }
@@ -64,7 +70,6 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d("MyLog", "Текст: $s")
                 mainViewModel.getAllLibraryItems("%$s%")
             }
 
@@ -75,8 +80,17 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         }
     }
 
+    private fun actionBarSettings() {
+        val ab = supportActionBar
+        ab?.setDisplayHomeAsUpEnabled(true)
+        setTitle(shopListNameItem?.name)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
             R.id.save_item -> {
                 addNewShopItem(edItem?.text.toString())
             }
@@ -237,6 +251,14 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             checkedItemsCounter = checkedItemCounter
         )
         mainViewModel.updateListName(tempShopListNameItem!!)
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if(defPref.getString("theme_key", "blue") == "blue") {
+            R.style.Theme_ShoppingListBlue
+        } else {
+            R.style.Theme_ShoppingListRed
+        }
     }
 
     override fun onBackPressed() {

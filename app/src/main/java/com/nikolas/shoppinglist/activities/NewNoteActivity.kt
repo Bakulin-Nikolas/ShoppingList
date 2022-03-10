@@ -43,6 +43,7 @@ class NewNoteActivity : AppCompatActivity() {
         defPref = PreferenceManager.getDefaultSharedPreferences(this)
         setTheme(getSelectedTheme())
         setContentView(binding.root)
+        setTitle(R.string.new_note)
         actionBarSettings()
         getNote()
         init()
@@ -81,6 +82,7 @@ class NewNoteActivity : AppCompatActivity() {
     private fun getNote() {
         val sNote = intent.getSerializableExtra(NoteFragment.NEW_NOTE_KEY)
         if (sNote != null) {
+            setTitle(R.string.edit_note)
             note = sNote as NoteItem
             fillNote()
         }

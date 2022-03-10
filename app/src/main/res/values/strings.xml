@@ -1,13 +1,15 @@
 <resources>
-    <string name="app_name">ShoppingList</string>
-    <string name="settings">Settings</string>
-    <string name="notes">Notes</string>
-    <string name="shop_list">Shop list</string>
-    <string name="new_item">New</string>
-    <string name="title_hint">Title</string>
-    <string name="description_hint">Description</string>
+    <string name="app_name">Список покупок</string>
+    <string name="settings">Настройки</string>
+    <string name="notes">Заметки</string>
+    <string name="new_note">Новая заметка</string>
+    <string name="edit_note">Редактирование</string>
+    <string name="shop_list">Покупки</string>
+    <string name="new_item">Новый</string>
+    <string name="title_hint">Заголовок</string>
+    <string name="description_hint">Описание</string>
     <string name="new_list">Название нового списка</string>
-    <string name="list_name">название списка</string>
+    <string name="list_name">Название списка</string>
     <string name="button_create_list">Создать список</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

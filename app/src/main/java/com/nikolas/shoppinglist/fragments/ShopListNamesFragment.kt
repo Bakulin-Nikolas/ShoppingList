@@ -2,6 +2,7 @@ package com.nikolas.shoppinglist.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -103,6 +104,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
     }
 
     override fun onClickItem(shopListNameItem: ShopListNameItem) {
+        activity?.setTitle(shopListNameItem.name)
         val i = Intent(activity, ShopListActivity::class.java).apply {
             putExtra(ShopListActivity.SHOP_LIST_NAME, shopListNameItem)
         }

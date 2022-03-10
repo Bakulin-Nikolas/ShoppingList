@@ -15,6 +15,7 @@ class SettingsActivity : AppCompatActivity() {
         defPref = PreferenceManager.getDefaultSharedPreferences(this)
         setTheme(getSelectedTheme())
         setContentView(R.layout.activity_settings)
+        setTitle(R.string.settings)
         if(savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.placeHolder, SettingsFragment()).commit()
         }
