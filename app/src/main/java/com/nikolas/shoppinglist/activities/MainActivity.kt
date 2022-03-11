@@ -14,6 +14,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.nikolas.shoppinglist.R
+import com.nikolas.shoppinglist.billing.BillingManager
 import com.nikolas.shoppinglist.databinding.ActivityMainBinding
 import com.nikolas.shoppinglist.dialogs.NewListDialog
 import com.nikolas.shoppinglist.fragments.FragmentManager
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     private var iAd: InterstitialAd? = null
     private var adShowCounter = 0
     private var adShowCounterMax = 5
+    private lateinit var pref: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +39,16 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
         currentTheme = defPref.getString("theme_key", "blue").toString()
         setTheme(getSelectedTheme())
         super.onCreate(savedInstanceState)
+        pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
         binding.bNav.selectedItemId = R.id.shop_list
         setBottomNavListener()
-        loadInterAd()
+        if(!pref.getBoolean(BillingManager.REMOVE_ADS_KEY, false)) {
+            loadInterAd()
+        }
+
     }
 
     private fun loadInterAd() {
