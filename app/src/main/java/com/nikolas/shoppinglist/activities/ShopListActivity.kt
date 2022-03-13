@@ -89,6 +89,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             android.R.id.home -> {
+                saveItemCount()
                 finish()
             }
             R.id.save_item -> {
@@ -204,6 +205,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         when(state) {
             ShopListItemAdapter.CHECK_BOX -> {
                 mainViewModel.updateListItem(shopListItem)
+                saveItemCount()
             }
             ShopListItemAdapter.EDIT -> {
                 editListItem(shopListItem)
