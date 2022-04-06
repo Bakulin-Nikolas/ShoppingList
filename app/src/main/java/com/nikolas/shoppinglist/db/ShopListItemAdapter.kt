@@ -1,9 +1,12 @@
 package com.nikolas.shoppinglist.db
 
+import android.content.Context
 import android.graphics.Paint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,6 +15,8 @@ import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ListNameItemBinding
 import com.nikolas.shoppinglist.databinding.ShopLibraryListItemBinding
 import com.nikolas.shoppinglist.databinding.ShopListItemBinding
+import com.nikolas.shoppinglist.dialogs.DeleteDialog
+import com.nikolas.shoppinglist.dialogs.DeleteItemDialog
 import com.nikolas.shoppinglist.entities.ShopListNameItem
 import com.nikolas.shoppinglist.entities.ShopListItem
 
@@ -110,6 +115,13 @@ class ShopListItemAdapter(private val listener: Listener) : ListAdapter<ShopList
         }
     }
 
+    fun removeItem(pos: Int, shopListId: Int, context: Context) {
+        listener.onDeleteItem(getItem(pos), shopListId)
+        notifyItemRangeChanged(0, currentList.size-1)
+        notifyItemRemoved(pos)
+
+    }
+
     class ItemComparator : DiffUtil.ItemCallback<ShopListItem>() {
 
         override fun areItemsTheSame(oldItem: ShopListItem, newItem: ShopListItem): Boolean {
@@ -124,6 +136,7 @@ class ShopListItemAdapter(private val listener: Listener) : ListAdapter<ShopList
 
     interface Listener {
         fun onClickItem(shopListItem: ShopListItem, state: Int)
+        fun onDeleteItem(shopListItem: ShopListItem, listId: Int)
     }
 
     companion object {

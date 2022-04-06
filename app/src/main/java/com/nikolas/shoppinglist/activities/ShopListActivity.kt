@@ -15,11 +15,15 @@ import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.nikolas.shoppinglist.R
 import com.nikolas.shoppinglist.databinding.ActivityShopListBinding
 import com.nikolas.shoppinglist.db.MainViewModel
 import com.nikolas.shoppinglist.db.ShopListItemAdapter
+import com.nikolas.shoppinglist.dialogs.DeleteDialog
+import com.nikolas.shoppinglist.dialogs.DeleteItemDialog
 import com.nikolas.shoppinglist.dialogs.EditListItemDialog
 import com.nikolas.shoppinglist.entities.LibraryItem
 import com.nikolas.shoppinglist.entities.ShopListItem
@@ -166,6 +170,10 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private fun initRcView() = with(binding) {
         adapter = ShopListItemAdapter(this@ShopListActivity)
         rcView.layoutManager = LinearLayoutManager(this@ShopListActivity)
+
+        val swapHelper = getSwapItem()
+        swapHelper.attachToRecyclerView(binding.rcView)
+
         rcView.adapter = adapter
     }
 
@@ -224,6 +232,13 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
     }
 
+    override fun onDeleteItem(shopListItem: ShopListItem, listId: Int) {
+        mainViewModel.deleteItem(shopListItem.id!!, listId)
+        Log.d("MyLog", shopListItem.name)
+        Log.d("MyLog", shopListItem.id.toString())
+        Log.d("MyLog", listId.toString())
+    }
+
     private fun editListItem(item: ShopListItem) {
         EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
             override fun onClick(item: ShopListItem) {
@@ -261,6 +276,29 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         } else {
             R.style.Theme_ShoppingListRed
         }
+    }
+
+    private fun getSwapItem(): ItemTouchHelper {
+        return ItemTouchHelper(object:ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                DeleteItemDialog.showDialog(this@ShopListActivity, object : DeleteItemDialog.Listener {
+                    override fun onClick() {
+                        adapter?.removeItem(viewHolder.adapterPosition, shopListNameItem?.id!!.toInt(),this@ShopListActivity)
+                    }
+
+                    override fun onCancel() {
+                        binding.rcView.adapter?.notifyDataSetChanged()
+                    }
+
+                })
+
+            }
+
+        })
     }
 
     override fun onBackPressed() {

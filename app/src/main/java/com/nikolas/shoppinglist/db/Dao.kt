@@ -38,6 +38,9 @@ interface Dao {
     @Query ("DELETE FROM note_list WHERE id IS :id")
     suspend fun deleteNote(id: Int)
 
+    @Query ("DELETE FROM shop_list_item WHERE id IS :id AND listId IS :listId")
+    suspend fun deleteItem(id: Int, listId: Int)
+
     @Query ("DELETE FROM shopping_list_names WHERE id IS :id")
     suspend fun deleteShopListName(id: Int)
 

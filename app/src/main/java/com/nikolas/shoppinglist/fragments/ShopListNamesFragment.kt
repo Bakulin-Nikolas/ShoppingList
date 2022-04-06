@@ -104,7 +104,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
     }
 
     override fun onClickItem(shopListNameItem: ShopListNameItem) {
-        activity?.setTitle(shopListNameItem.name)
+        //activity?.setTitle(shopListNameItem.name)
         val i = Intent(activity, ShopListActivity::class.java).apply {
             putExtra(ShopListActivity.SHOP_LIST_NAME, shopListNameItem)
         }
