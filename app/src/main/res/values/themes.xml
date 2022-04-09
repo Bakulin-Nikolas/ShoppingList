@@ -59,4 +59,7 @@
     <style name="Theme.EditBlue" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorSecondary">@color/white</item>
     </style>
+    <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
 </resources>

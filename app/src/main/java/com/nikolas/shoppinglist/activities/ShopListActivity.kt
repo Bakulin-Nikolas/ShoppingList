@@ -234,9 +234,6 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
     override fun onDeleteItem(shopListItem: ShopListItem, listId: Int) {
         mainViewModel.deleteItem(shopListItem.id!!, listId)
-        Log.d("MyLog", shopListItem.name)
-        Log.d("MyLog", shopListItem.id.toString())
-        Log.d("MyLog", listId.toString())
     }
 
     private fun editListItem(item: ShopListItem) {
@@ -263,6 +260,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 checkedItemCounter++
             }
         }
+
         val tempShopListNameItem = shopListNameItem?.copy(
             allItemCounter = adapter?.itemCount!!,
             checkedItemsCounter = checkedItemCounter
